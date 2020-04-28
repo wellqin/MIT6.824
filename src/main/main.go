@@ -1,9 +1,9 @@
 package main
 
-// 不在go module下，就利用gopath，import src下面的目录/文件，比如“SourceCode/crawler”
-// 在go module下 你源码中 impot …/ 这样的引入形式不支持了， 应该改成 impot 模块名/ 。 这样就ok了
-// go module前删除gopath，并且开启module环境变量+设置代理变量，同时在pycharm中也进行设置，最后才完成
-// impot mod文件中的module，并加上文件在src下的目录
+// 不在go module下，就利用go path，import src下面的目录/文件，比如“SourceCode/crawler”
+// 在go module下 你源码中 import …/ 这样的引入形式不支持了， 应该改成 import 模块名/ 。 这样就ok了
+// go module前删除go path，并且开启module环境变量+设置代理变量，同时在pycharm中也进行设置，最后才完成
+// import mod文件中的module，并加上文件在src下的目录
 import (
 	"fmt"
 	crawler "github.com/wellqin/MIT6.824/src/SourceCode"
@@ -76,11 +76,11 @@ var fetcher = fakeFetcher{
 func main() {
 	fmt.Printf("=== Serial===\n")
 	crawler.Serial("http://golang.org/", fetcher, make(map[string]bool))
-	crawler.Into()
+	//crawler.Into()
 
-	//fmt.Printf("=== ConcurrentMutex ===\n")
-	//crawler.ConcurrentMutex("http://golang.org/", fetcher, makeState())
+	fmt.Printf("=== ConcurrentMutex ===\n")
+	crawler.ConcurrentMutex("http://golang.org/", fetcher, crawler.MakeState())
 
-	//fmt.Printf("=== ConcurrentChannel ===\n")
-	//crawler.ConcurrentChannel("http://golang.org/", fetcher)
+	fmt.Printf("=== ConcurrentChannel ===\n")
+	crawler.ConcurrentChannel("http://golang.org/", fetcher)
 }
